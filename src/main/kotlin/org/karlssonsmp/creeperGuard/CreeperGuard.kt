@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import net.kyori.adventure.text.minimessage.MiniMessage
+import org.bstats.bukkit.Metrics
 
 class CreeperGuard : JavaPlugin(), Listener {
 
@@ -20,6 +21,10 @@ class CreeperGuard : JavaPlugin(), Listener {
         protectionEnabled = config.getBoolean("creeperguard-enabled", true)
         server.pluginManager.registerEvents(this, this)
         getCommand("creeperguard")?.setExecutor(this)
+
+        val pluginId = 26867
+        Metrics(this, pluginId)
+
         logger.info("CreeperGuard is ready to protect your builds from creeper damage!")
     }
 

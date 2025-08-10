@@ -1,0 +1,12 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CreeperGuard:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CreeperGuard_jar</output-path>
+    <root id="archive" name="CreeperGuard.jar">
+      <element id="module-output" name="CreeperGuard" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/annotations/26.0.2/annotations-26.0.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-stdlib/2.0.21/kotlin-stdlib-2.0.21.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-stdlib-jdk8/2.0.21/kotlin-stdlib-jdk8-2.0.21.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/kotlin/kotlin-stdlib-jdk7/2.0.21/kotlin-stdlib-jdk7-2.0.21.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

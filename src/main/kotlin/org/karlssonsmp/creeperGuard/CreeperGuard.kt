@@ -8,13 +8,13 @@ import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
-import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bstats.bukkit.Metrics
 
 class CreeperGuard : JavaPlugin(), Listener {
 
     private var protectionEnabled = true
-    private val mm = MiniMessage.miniMessage()
+
+    private val prefix = "§8§lᴄʀᴇᴇᴘᴇʀɢᴜᴀʀᴅ §7» §r"
 
     override fun onEnable() {
         saveDefaultConfig()
@@ -35,14 +35,16 @@ class CreeperGuard : JavaPlugin(), Listener {
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onEntityExplode(event: EntityExplodeEvent) {
-        if (protectionEnabled && event.entity.type == EntityType.CREEPER) {
+        if (!protectionEnabled) return
+
+        if (event.entity.type == EntityType.CREEPER) {
             event.blockList().clear()
         }
     }
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
         if (!sender.hasPermission("creeperguard.admin")) {
-            sender.sendMessage(mm.deserialize("<red>No permission!"))
+            sender.sendMessage("${prefix}§cYou don't have permission to do that.")
             return true
         }
 
@@ -50,15 +52,15 @@ class CreeperGuard : JavaPlugin(), Listener {
             "on" -> {
                 protectionEnabled = true
                 saveState()
-                sender.sendMessage(mm.deserialize("<bold><dark_gray>ᴄʀᴇᴇᴘᴇʀɢᴜᴀʀᴅ</dark_gray></bold> <gray>»</gray> <green>Creeper protection ON</green>"))
+                sender.sendMessage("${prefix}§aCreeper protection ON")
             }
             "off" -> {
                 protectionEnabled = false
                 saveState()
-                sender.sendMessage(mm.deserialize("<bold><dark_gray>ᴄʀᴇᴇᴘᴇʀɢᴜᴀʀᴅ</dark_gray></bold> <gray>»</gray> <red>Creeper protection OFF</red>"))
+                sender.sendMessage("${prefix}§cCreeper protection OFF")
             }
             else -> {
-                sender.sendMessage(mm.deserialize("<bold><dark_gray>ᴄʀᴇᴇᴘᴇʀɢᴜᴀʀᴅ</dark_gray></bold> <gray>»</gray> <green>Usage: /$label [on | off]</green>"))
+                sender.sendMessage("${prefix}§7Usage: /$label [on | off]")
             }
         }
         return true

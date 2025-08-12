@@ -2,7 +2,7 @@ name: CreeperGuard
 version: 1.0
 description: Prevents creeper explosions from destroying blocks
 author: karlsson1000
-api-version: 1.21
+api-version: 1.18
 main: org.karlssonsmp.creeperGuard.CreeperGuard
 
 commands:

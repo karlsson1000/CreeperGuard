@@ -8,9 +8,10 @@ import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
+import org.bukkit.command.TabCompleter
 import org.bstats.bukkit.Metrics
 
-class CreeperGuard : JavaPlugin(), Listener {
+class CreeperGuard : JavaPlugin(), Listener, TabCompleter {
 
     private var protectionEnabled = true
 
@@ -21,6 +22,7 @@ class CreeperGuard : JavaPlugin(), Listener {
         protectionEnabled = config.getBoolean("creeperguard-enabled", true)
         server.pluginManager.registerEvents(this, this)
         getCommand("creeperguard")?.setExecutor(this)
+        getCommand("creeperguard")?.tabCompleter = this
 
         val pluginId = 26867
         Metrics(this, pluginId)
@@ -50,19 +52,41 @@ class CreeperGuard : JavaPlugin(), Listener {
 
         when (args.getOrNull(0)?.lowercase()) {
             "on" -> {
-                protectionEnabled = true
-                saveState()
-                sender.sendMessage("${prefix}§aCreeper protection ON")
+                if (protectionEnabled) {
+                    sender.sendMessage("${prefix}§aCreeper protection is already ON")
+                } else {
+                    protectionEnabled = true
+                    saveState()
+                    sender.sendMessage("${prefix}§aCreeper protection ON")
+                }
             }
             "off" -> {
-                protectionEnabled = false
-                saveState()
-                sender.sendMessage("${prefix}§cCreeper protection OFF")
+                if (!protectionEnabled) {
+                    sender.sendMessage("${prefix}§cCreeper protection is already OFF")
+                } else {
+                    protectionEnabled = false
+                    saveState()
+                    sender.sendMessage("${prefix}§cCreeper protection OFF")
+                }
             }
             else -> {
                 sender.sendMessage("${prefix}§7Usage: /$label [on | off]")
             }
         }
         return true
+    }
+
+    override fun onTabComplete(sender: CommandSender, command: Command, alias: String, args: Array<String>): List<String> {
+        if (!sender.hasPermission("creeperguard.admin")) {
+            return emptyList()
+        }
+
+        return when (args.size) {
+            1 -> {
+                val options = listOf("on", "off")
+                options.filter { it.startsWith(args[0].lowercase()) }
+            }
+            else -> emptyList()
+        }
     }
 }

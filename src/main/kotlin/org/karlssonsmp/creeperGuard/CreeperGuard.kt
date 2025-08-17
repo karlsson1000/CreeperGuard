@@ -14,18 +14,21 @@ import org.bstats.bukkit.Metrics
 class CreeperGuard : JavaPlugin(), Listener, TabCompleter {
 
     private var protectionEnabled = true
-
     private val prefix = "§8§lᴄʀᴇᴇᴘᴇʀɢᴜᴀʀᴅ §7» §r"
 
     override fun onEnable() {
         saveDefaultConfig()
         protectionEnabled = config.getBoolean("creeperguard-enabled", true)
+        val metricsEnabled = config.getBoolean("metrics", true)
+
         server.pluginManager.registerEvents(this, this)
         getCommand("creeperguard")?.setExecutor(this)
         getCommand("creeperguard")?.tabCompleter = this
 
-        val pluginId = 26867
-        Metrics(this, pluginId)
+        if (metricsEnabled) {
+            val pluginId = 26867
+            Metrics(this, pluginId)
+        }
 
         logger.info("CreeperGuard is ready to protect your builds from creeper damage!")
     }

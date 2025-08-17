@@ -1,3 +1,6 @@
 # CreeperGuard Configuration
 
 creeperguard-enabled: true
+
+# Enable bStats metrics
+metrics: true

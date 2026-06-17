@@ -1,10 +1,10 @@
 plugins {
-    kotlin("jvm") version "2.3.0"
+    kotlin("jvm") version "2.4.0"
     id("com.gradleup.shadow") version "9.3.0"
 }
 
 group = "org.karlssonsmp"
-version = "1.5"
+version = "1.6"
 
 repositories {
     mavenCentral()
@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:26.1.1.build.+")
+    compileOnly("io.papermc.paper:paper-api:26.2.build.+")
     implementation("org.bstats:bstats-bukkit:3.2.1")
     implementation(kotlin("stdlib-jdk8"))
     testImplementation(kotlin("test"))

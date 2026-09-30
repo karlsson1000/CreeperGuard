@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "org.karlssonsmp"
-version = "1.6"
+version = "1.7"
 
 repositories {
     mavenCentral()
@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:26.2.build.+")
+    compileOnly("io.papermc.paper:paper-api:26.3.build.+")
     implementation("org.bstats:bstats-bukkit:3.2.1")
     implementation(kotlin("stdlib-jdk8"))
     testImplementation(kotlin("test"))
